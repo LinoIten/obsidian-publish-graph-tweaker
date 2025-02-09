@@ -133,12 +133,39 @@ document.addEventListener('click', () => {
 
 3. Publish the `publish.js` file through Obsidian Publish settings
 
-## Customization
+## Understanding and Customizing the Graph Renderer
 
-The script provides two main ways to customize the graph:
+The script works by manipulating `app.graph.renderer`, which is the core object controlling the graph's appearance and behavior. You can explore its capabilities by:
+
+1. Opening your browser's developer console
+2. Inspecting `app.graph.renderer` to discover available properties and methods
+3. Using this knowledge to extend the script with new customizations
+
+However, remember that any direct modifications to the renderer will be reset by Obsidian Publish. This is why the script uses an observer pattern and periodic reapplication - to ensure your customizations persist.
+
+### Node Color Patterns
+
+The `nodeColors` patterns work by matching against the full path of notes in your vault. For example:
+- A note at `Item/Sword.md` would match the pattern `/^Item\//`
+- A note at `Spells/Fire/Fireball.md` would match the pattern `/^Spells\//`
+
+Currently, the coloring system relies on folder structures, so you'll need to organize your notes into folders to take advantage of the coloring patterns.
+
+### Available Customizations
+
+The script provides several ways to customize the graph:
 
 1. **Base Colors**: Modify the `baseColors` object to change the default appearance of graph elements
 2. **Node Colors**: Add or modify patterns in the `nodeColors` array to color specific types of nodes
+3. **Renderer Properties**: Explore and modify other renderer properties you discover through console inspection
+
+For example, you might find properties controlling:
+- Node sizes and shapes
+- Line thicknesses
+- Animation behaviors
+- Layout algorithms
+
+Just remember to add any new customizations to the `applySettings` function to ensure they persist.
 
 ## Troubleshooting
 
